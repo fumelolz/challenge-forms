@@ -6,7 +6,7 @@
 npm i
 ```
 
-## Para correr el servidor en local
+## Para correr el proyecto en local
 
 ```javascript
 ng serve
