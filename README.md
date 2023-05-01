@@ -9,5 +9,5 @@ npm i
 ## Para correr el servidor en local
 
 ```javascript
-node ./server.js
+ng serve
 ```
