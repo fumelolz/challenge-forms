@@ -1,0 +1,25 @@
+<nav>
+  <ul class="nav-left-side">
+    <li class="aside-handle">
+      <i class="fa-solid fa-bars" (click)="handleAside()"></i>
+    </li>
+    <li>
+      <img
+        src="assets/images/logo.png"
+        alt="logo"
+        class="login-logo"
+        width="82px"
+      />
+    </li>
+  </ul>
+  <ul class="nav-right-side">
+    <li>
+      <span>
+        {{ authService.user | name }}
+      </span>
+    </li>
+    <li (click)="logout()" style="cursor: pointer">
+      <mat-icon>logout</mat-icon>
+    </li>
+  </ul>
+</nav>

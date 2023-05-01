@@ -1,0 +1,67 @@
+<form class="form-container" [formGroup]="productForm" (ngSubmit)="save()">
+  <h2>Crear un nuevo usuario</h2>
+  <div class="form-user">
+    <div class="input-group">
+      <label for="name">Nombre del producto</label>
+      <input
+        id="name"
+        type="text"
+        appInputError
+        placeholder="Ingresa el nombre del producto"
+        formControlName="name"
+      />
+      <small
+        class="input-error"
+        *ngIf="name.hasError('required') && name.touched"
+        >El campo es requerido</small
+      >
+    </div>
+    <div class="input-group">
+      <label for="cost">Costo del producto</label>
+      <input
+        appInputError
+        id="cost"
+        type="text"
+        placeholder="Ingresa el precio"
+        formControlName="cost"
+      />
+      <small
+        class="input-error"
+        *ngIf="cost.hasError('required') && cost.touched"
+        >El campo es requerido</small
+      >
+    </div>
+    <div class="input-group">
+      <label for="quantity">Cantidad del producto</label>
+      <input
+        id="quantity"
+        type="number"
+        [class.invalid]="
+          (quantity.hasError('required') || quantity.hasError('required')) &&
+          quantity.touched
+        "
+        placeholder="Ingresa la cantidad"
+        formControlName="quantity"
+      />
+      <small
+        class="input-error"
+        *ngIf="quantity.hasError('required') && quantity.touched"
+        >El campo es requerido</small
+      >
+    </div>
+  </div>
+  <div class="form-user-controls">
+    <button
+      mat-stroked-button
+      color="primary"
+      type="button"
+      routerLink="/home/products"
+    >
+      Cancelar
+    </button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="sending">
+      <mat-spinner *ngIf="sending" [diameter]="24" color="warn"></mat-spinner>
+      <span *ngIf="!sending">Guardar</span>
+    </button>
+  </div>
+</form>

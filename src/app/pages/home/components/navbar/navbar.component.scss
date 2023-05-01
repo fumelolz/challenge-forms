@@ -1,0 +1,25 @@
+.nav-left-side,
+.nav-right-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.nav-left-side {
+  gap: 12px;
+}
+
+.nav-right-side {
+  gap: 8px;
+
+  mat-icon:hover {
+    color: #567fb4;
+    transition: background-color 0.2s ease;
+  }
+}

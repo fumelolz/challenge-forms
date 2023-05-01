@@ -1,0 +1,85 @@
+<div class="login-container">
+  <form class="login-main" [formGroup]="userForm" (ngSubmit)="save()">
+    <img src="assets/images/logo.png" alt="logo" class="login-logo" />
+    <div class="login-title">
+      <h1>Challenge Form Nexius</h1>
+      <p>Bienvenido a la plataforma</p>
+    </div>
+
+    <div class="box-alert danger" *ngIf="invalidLogin">
+      Email o Contraseña invalido
+    </div>
+    <div class="login-inputs">
+      <div class="input-group">
+        <label for="user">Email</label>
+        <input
+          type="text"
+          [class.invalid]="
+            (email.hasError('required') || email.hasError('email')) &&
+            email.touched
+          "
+          placeholder="Ingresa tu correo electronico"
+          formControlName="email"
+        />
+        <small
+          class="input-error"
+          *ngIf="email.hasError('required') && email.touched"
+          >El campo es requerido</small
+        >
+        <small
+          class="input-error"
+          *ngIf="email.hasError('email') && email.touched"
+          >Email invalido</small
+        >
+      </div>
+      <div class="input-group input-password">
+        <label for="pass">Contraseña</label>
+        <input
+          type="password"
+          [type]="showPass ? 'text' : 'password'"
+          [class.invalid]="password.hasError('required') && password.touched"
+          placeholder="******"
+          formControlName="password"
+        />
+        <mat-icon (click)="showPass = !showPass" style="cursor: pointer">{{
+          showPass ? "visibility_off" : "visibility"
+        }}</mat-icon>
+        <small
+          class="input-error"
+          *ngIf="password.hasError('required') && password.touched"
+          >El campo es requerido</small
+        >
+      </div>
+      <div class="login-actions">
+        <button type="submit" [disabled]="loading">
+          <app-loader *ngIf="loading"></app-loader>
+          <span *ngIf="!loading"> Iniciar sesión </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="login-info">
+      <button type="button">
+        <img
+          src="assets/images/google.png"
+          alt="google"
+          width="18px"
+          height="18px"
+        />
+        <span>Google</span>
+      </button>
+      <button type="button">
+        <img
+          src="assets/images/facebook.png"
+          alt="google"
+          width="18px"
+          height="18px"
+        />
+        <span>Facebook</span>
+      </button>
+    </div>
+    <div class="login-rights">
+      <small>&copy; Todos los derechos reservados</small>
+    </div>
+  </form>
+</div>

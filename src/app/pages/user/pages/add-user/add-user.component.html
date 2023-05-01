@@ -1,0 +1,112 @@
+<h1>Usuarios</h1>
+<form class="form-container" [formGroup]="userForm" (ngSubmit)="save()">
+  <h2>
+    {{ this._id !== 0 ? "Actualizar usuario" : "Crear un nuevo usuario" }}
+  </h2>
+  <div class="form-user">
+    <div class="input-group">
+      <label for="user">Email</label>
+      <input
+        id="user"
+        type="text"
+        [class.invalid]="
+          (email.hasError('required') || email.hasError('email')) &&
+          email.touched
+        "
+        placeholder="Ingresa tu correo electronico"
+        formControlName="email"
+      />
+      <small
+        class="input-error"
+        *ngIf="email.hasError('required') && email.touched"
+        >El campo es requerido</small
+      >
+      <small
+        class="input-error"
+        *ngIf="email.hasError('email') && email.touched"
+        >Email invalido</small
+      >
+    </div>
+    <div class="input-group input-password">
+      <label for="pass">Contraseña</label>
+      <input
+        id="pass"
+        [type]="showPass ? 'text' : 'password'"
+        [class.invalid]="password.hasError('required') && password.touched"
+        placeholder="******"
+        formControlName="password"
+      />
+      <mat-icon (click)="showPass = !showPass" style="cursor: pointer">{{
+        showPass ? "visibility_off" : "visibility"
+      }}</mat-icon>
+      <small
+        class="input-error"
+        *ngIf="password.hasError('required') && password.touched"
+        >El campo es requerido</small
+      >
+    </div>
+    <div class="input-group">
+      <label for="name">Nombre</label>
+      <input
+        id="name"
+        type="name"
+        [class.invalid]="name.hasError('required') && name.touched"
+        placeholder="Nombre"
+        formControlName="name"
+      />
+      <small
+        class="input-error"
+        *ngIf="name.hasError('required') && name.touched"
+        >El campo es requerido</small
+      >
+    </div>
+    <div class="input-group">
+      <label for="last_name">Apellidos</label>
+      <input
+        id="last_name"
+        type="last_name"
+        [class.invalid]="last_name.hasError('required') && last_name.touched"
+        placeholder="Apellidos"
+        formControlName="last_name"
+      />
+      <small
+        class="input-error"
+        *ngIf="last_name.hasError('required') && last_name.touched"
+        >El campo es requerido</small
+      >
+    </div>
+    <div class="input-group">
+      <label for="role">Role</label>
+      <select
+        id="role"
+        [class.invalid]="role.hasError('required') && role.touched"
+        formControlName="role"
+      >
+        <option *ngFor="let role of roles" [value]="role.id">
+          {{ role.name }}
+        </option>
+      </select>
+      <small
+        class="input-error"
+        *ngIf="last_name.hasError('required') && last_name.touched"
+        >El campo es requerido</small
+      >
+    </div>
+  </div>
+  <div class="form-user-controls">
+    <button
+      mat-stroked-button
+      color="primary"
+      type="button"
+      routerLink="/users"
+    >
+      Cancelar
+    </button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="sending">
+      <mat-spinner *ngIf="sending" [diameter]="24" color="warn"></mat-spinner>
+      <span *ngIf="!sending">{{
+        this._id !== 0 ? "Actualizar" : "Guardar"
+      }}</span>
+    </button>
+  </div>
+</form>

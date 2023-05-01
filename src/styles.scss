@@ -1,1 +1,272 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;1,200;1,300;1,700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+label {
+  font-size: 14px;
+}
+
+ul {
+  list-style: none;
+}
+
+label {
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+table {
+  width: 100%;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+.input-group {
+  position: relative;
+}
+
+.input-password {
+  mat-icon {
+    position: absolute;
+    right: 4px;
+    top: 37px;
+    font-size: 18px;
+  }
+}
+
+.content-admin {
+  display: grid;
+  grid-template-areas:
+    "nav"
+    "main";
+  grid-template-columns: 1fr;
+  grid-template-rows: 48px 1fr;
+  height: 100%;
+  margin-left: 186px;
+  transition: all 0.5s;
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  width: 186px;
+  height: 100%;
+  background-color: #343a40;
+  color: #fff;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+body.aside-closed aside {
+  width: 55px;
+  transition: all 0.5s;
+
+  .aside-title h1 {
+    opacity: 0;
+    transition: all 0.3s;
+  }
+
+  .aside-links .aside-links-name {
+    opacity: 0;
+    transition: all 0.3s;
+  }
+}
+
+aside .aside-links {
+  display: flex;
+  flex-direction: column;
+  height: 48px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+aside .aside-links a {
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  justify-content: flex-start;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+aside .aside-links a span {
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+aside .aside-title {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  margin-top: 0px;
+}
+
+aside .aside-title span {
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #122f71;
+  border-radius: 8px;
+  font-size: 18px;
+  margin-left: 10px;
+  margin-right: 8px;
+}
+
+aside .aside-title h1 {
+  font-size: 22px;
+  opacity: 1;
+  pointer-events: none;
+  margin-bottom: 0;
+  transition: all 0.5s;
+}
+
+body.aside-closed .content-admin {
+  margin-left: 55px;
+  transition: all 0.5s;
+}
+
+.content-admin nav {
+  grid-area: nav;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 12px;
+  background-color: #fff;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.content-admin nav ul {
+  line-height: 48px;
+}
+.content-admin nav ul > li {
+  cursor: pointer;
+}
+
+.content-admin main {
+  grid-area: main;
+  background-color: #f4f6f9;
+  padding: 14px;
+}
+
+main .form-container {
+  background-color: #fff;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-user {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-user-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+  gap: 12px;
+}
+
+.form-user-controls button {
+  width: 180px;
+}
+
+// Contenedores
+// Listas
+.list-container {
+  background-color: #fff;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.list-controls {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 18px;
+}
+
+// Micelania
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.badge-success {
+  color: #fff;
+  background-color: #28a745;
+}
+
+.badge-danger {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.badge-info {
+  color: #fff;
+  background-color: #17a2b8;
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  aside {
+    width: 0;
+  }
+
+  .content-admin {
+    margin-left: 0;
+    transition: all 0.5s;
+  }
+
+  .form-user {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 476) {
+}
