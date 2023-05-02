@@ -5,20 +5,17 @@
   </div>
 
   <div class="aside-links">
-    <div class="aside-link" routerLinkActive="active">
-      <a routerLink="users" *ngIf="authService.role === 'ADMIN'">
-        <mat-icon>person</mat-icon>
-        <span class="aside-links-name">Usuarios</span></a
-      >
-    </div>
-    <div class="aside-link" routerLinkActive="active">
-      <a
-        routerLink="products"
-        *ngIf="authService.role === 'CLIENT' || authService.role === 'ADMIN'"
-      >
-        <mat-icon>inventory</mat-icon>
-        <span class="aside-links-name">Productos</span></a
-      >
-    </div>
+    <app-link
+      *ngIf="authService.role === 'ADMIN'"
+      link="users"
+      icon="person"
+      name="Usuarios"
+    ></app-link>
+    <app-link
+      *ngIf="authService.role === 'CLIENT' || authService.role === 'ADMIN'"
+      link="products"
+      icon="inventory"
+      name="Productos"
+    ></app-link>
   </div>
 </aside>

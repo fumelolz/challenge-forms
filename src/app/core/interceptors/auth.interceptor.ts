@@ -23,6 +23,13 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    const routes = [
+      'http://localhost:8000/auth/login',
+      'http://localhost:8000/auth/register',
+    ];
+    if (routes.includes(request.url)) {
+      return next.handle(request);
+    }
     request = request.clone({
       setHeaders: { Authorization: `Bearer ${this.authService.token}` },
     });

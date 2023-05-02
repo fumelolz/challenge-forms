@@ -27,10 +27,10 @@ export class UserService {
   }
 
   saveOne(body: any): Observable<any> {
-    return this.http.post(environment.api.concat('/api/users'), body);
+    return this.http.post(environment.api.concat('/auth/register'), body);
   }
 
   updateOne(id: number, body: any): Observable<any> {
-    return this.http.put(environment.api.concat(`/api/users/${id}`), body);
+    return this.http.put(environment.api.concat(`/auth/users/${id}`), body);
   }
 }

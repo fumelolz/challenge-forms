@@ -7,26 +7,3 @@
     margin-left: 8px;
   }
 }
-
-.aside-link {
-  display: inline-block;
-  &:hover,
-  &.active {
-    background-color: #567fb4;
-    transition: background-color 0.2s ease;
-  }
-}
-
-.aside-link::before {
-  content: "";
-  background-color: #fff;
-  width: 2px;
-  height: 32px;
-}
-
-a {
-  padding: 8px;
-  mat-icon {
-    margin-left: 6px;
-  }
-}
