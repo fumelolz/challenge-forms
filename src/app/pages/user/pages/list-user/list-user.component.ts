@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/core/models/User.model';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -9,8 +10,14 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class ListUserComponent implements OnInit {
   displayedColumns: string[] = ['Nombre', 'Email', 'Rol', 'Acciones'];
-  users: Observable<any> = this.userService.getAll();
+  users: User[] = [];
   constructor(private readonly userService: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getAll().subscribe({
+      next: (response) => {
+        this.users = response;
+      },
+    });
+  }
 }

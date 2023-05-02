@@ -6,17 +6,20 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, delay, finalize, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoaderService } from '../services/loader.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly _snackBar: MatSnackBar
+    private readonly _snackBar: MatSnackBar,
+    private loaderService: LoaderService
   ) {}
 
   intercept(
@@ -30,10 +33,13 @@ export class AuthInterceptor implements HttpInterceptor {
     if (routes.includes(request.url)) {
       return next.handle(request);
     }
+
+    this.loaderService.show();
     request = request.clone({
       setHeaders: { Authorization: `Bearer ${this.authService.token}` },
     });
     return next.handle(request).pipe(
+      delay(environment.delay),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           this._snackBar.open('La sesión caduco', '', {
@@ -48,8 +54,9 @@ export class AuthInterceptor implements HttpInterceptor {
           });
           this.authService.logout();
         }
-        return throwError(() => new Error('test'));
-      })
+        return throwError(error);
+      }),
+      finalize(() => this.loaderService.hide())
     );
   }
 }

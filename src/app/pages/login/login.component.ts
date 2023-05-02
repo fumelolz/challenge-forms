@@ -41,36 +41,34 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    setTimeout(() => {
-      this.authService.login(this.userForm.value).subscribe({
-        next: (response) => {
-          localStorage.setItem('access_token', response.access_token);
-          localStorage.setItem('role', response.role);
-          localStorage.setItem(
-            'user_data',
-            JSON.stringify({
-              name: response.name,
-              last_name: response.last_name,
-            })
-          );
-          this._snackBar.open('Bienvenido', '', {
-            duration: 3000,
-          });
-          this.router.navigate(['home']);
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-            if (error.status === 401) {
-              this.invalidLogin = true;
-            }
+    this.authService.login(this.userForm.value).subscribe({
+      next: (response) => {
+        localStorage.setItem('access_token', response.access_token);
+        localStorage.setItem('role', response.role);
+        localStorage.setItem(
+          'user_data',
+          JSON.stringify({
+            name: response.name,
+            last_name: response.last_name,
+          })
+        );
+        this._snackBar.open('Bienvenido', '', {
+          duration: 3000,
+        });
+        this.router.navigate(['home']);
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            this.invalidLogin = true;
           }
-          this.loading = false;
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      });
-    }, 3000);
+        }
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 
   get email(): AbstractControl {

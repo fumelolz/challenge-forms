@@ -1,4 +1,3 @@
-<h1>Usuarios</h1>
 <form class="form-container" [formGroup]="userForm" (ngSubmit)="save()">
   <h2>
     {{ this._id !== 0 ? "Actualizar usuario" : "Crear un nuevo usuario" }}
@@ -98,7 +97,7 @@
       mat-stroked-button
       color="primary"
       type="button"
-      routerLink="/users"
+      routerLink="/home/users"
     >
       Cancelar
     </button>

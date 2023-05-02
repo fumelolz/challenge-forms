@@ -11,19 +11,11 @@ export class UserService {
   constructor(private readonly http: HttpClient) {}
 
   getAll(): Observable<User[]> {
-    return this.http.get<User[]>(environment.api.concat('/api/users'));
+    return this.http.get<User[]>(environment.api_fake.concat('/users'));
   }
 
-  getOneById(id: number): Observable<User | null> {
-    return this.http.get<User[]>(environment.api.concat(`/api/users`)).pipe(
-      map((response) => {
-        const users = response.filter((user) => user.id === id);
-        if (users.length < 0) {
-          return null;
-        }
-        return users[0];
-      })
-    );
+  getOneById(id: number): Observable<User> {
+    return this.http.get<User>(environment.api_fake.concat(`/users/${id}`));
   }
 
   saveOne(body: any): Observable<any> {

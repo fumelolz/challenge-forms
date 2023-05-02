@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -26,17 +27,31 @@ export class AddProductComponent implements OnInit {
   ) {
     this.productForm = this._fb.group({
       id: [0, Validators.required],
-      cost: [0, Validators.required],
-      name: ['', Validators.required],
+      cost: [null, [Validators.required, Validators.pattern(/^[0-9.]*$/)]],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       quantity: [0, Validators.required],
     });
   }
   ngOnInit(): void {
     if (this._activedRoute.snapshot.paramMap.get('id')) {
+      this.productForm.disable();
       this.id.setValue(+this._activedRoute.snapshot.paramMap.get('id')!);
       this._productService.getOneById(this.id.value).subscribe({
         next: (response) => {
           this.productForm.patchValue({ ...response });
+        },
+        error: (error) => {
+          if (error instanceof HttpErrorResponse) {
+            if (error.status === 404) {
+              this._snackBar.open('Producto no encontrado', '', {
+                duration: 3000,
+              });
+              this._router.navigateByUrl('/home/products');
+            }
+          }
+        },
+        complete: () => {
+          this.productForm.enable();
         },
       });
     }
@@ -44,6 +59,14 @@ export class AddProductComponent implements OnInit {
 
   save() {
     this.sending = true;
+
+    if (this.quantity.value < 0) {
+      this._snackBar.open('No puede haber cantidades negativas', '', {
+        duration: 3000,
+      });
+      this.sending = false;
+      return;
+    }
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       this._snackBar.open('Formulario invalido', '', {
@@ -62,19 +85,17 @@ export class AddProductComponent implements OnInit {
   }
 
   saveOne() {
-    setTimeout(() => {
-      this._productService.saveOne(this.productForm.value).subscribe({
-        next: (response) => {
-          this._snackBar.open('Guardado Correctamente', '', {
-            duration: 3000,
-          });
-          this._router.navigate(['home', 'products']);
-        },
-        complete: () => {
-          this.sending = false;
-        },
-      });
-    }, 3000);
+    this._productService.saveOne(this.productForm.value).subscribe({
+      next: (response) => {
+        this._snackBar.open('Guardado Correctamente', '', {
+          duration: 3000,
+        });
+        this._router.navigate(['home', 'products']);
+      },
+      complete: () => {
+        this.sending = false;
+      },
+    });
   }
 
   updateOne() {

@@ -12,7 +12,7 @@ type NewType = Document;
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  public subscrube!: Subscription;
+  public sub!: Subscription;
   constructor(
     private readonly renderer: Renderer2,
     @Inject(DOCUMENT) private document: NewType,
@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private _sidebarService: SidebarService
   ) {}
   ngOnInit(): void {
-    this.subscrube = this._sidebarService.handleSidebar.subscribe((res) => {
+    this.sub = this._sidebarService.handleSidebar.subscribe((res) => {
       if (res) {
         this.renderer.addClass(this.document.body, 'aside-closed');
         return;
@@ -29,6 +29,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    this.subscrube.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

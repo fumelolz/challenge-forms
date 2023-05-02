@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -46,6 +47,7 @@ export class AddUserComponent implements OnInit {
   }
   ngOnInit(): void {
     if (this._activedRoute.snapshot.paramMap.get('id')) {
+      this.userForm.disable();
       this._id = +this._activedRoute.snapshot.paramMap.get('id')!;
       this._userService.getOneById(this._id).subscribe({
         next: (response) => {
@@ -53,12 +55,19 @@ export class AddUserComponent implements OnInit {
             this.userForm.patchValue({ ...response });
             return;
           }
-          this._snackBar.open('Usuario no encontrado', '', {
-            duration: 3000,
-          });
-          this._router.navigate(['../'], {
-            relativeTo: this._activedRoute.parent,
-          });
+        },
+        error: (error) => {
+          if (error instanceof HttpErrorResponse) {
+            if (error.status === 404) {
+              this._snackBar.open('Usuario no encontrado', '', {
+                duration: 3000,
+              });
+              this._router.navigateByUrl('/home/users');
+            }
+          }
+        },
+        complete: () => {
+          this.userForm.enable();
         },
       });
     }
@@ -84,21 +93,17 @@ export class AddUserComponent implements OnInit {
   }
 
   saveOne() {
-    setTimeout(() => {
-      this._userService.saveOne(this.userForm.value).subscribe({
-        next: (response) => {
-          this._snackBar.open('Guardado Correctamente', '', {
-            duration: 3000,
-          });
-          this._router.navigate(['../'], {
-            relativeTo: this._activedRoute.parent,
-          });
-        },
-        complete: () => {
-          this.sending = false;
-        },
-      });
-    }, 3000);
+    this._userService.saveOne(this.userForm.value).subscribe({
+      next: (response) => {
+        this._snackBar.open('Guardado Correctamente', '', {
+          duration: 3000,
+        });
+        this._router.navigateByUrl('/home/users');
+      },
+      complete: () => {
+        this.sending = false;
+      },
+    });
   }
 
   updateOne() {
@@ -109,9 +114,7 @@ export class AddUserComponent implements OnInit {
           this._snackBar.open('Actualizado Correctamente', '', {
             duration: 3000,
           });
-          this._router.navigate(['../'], {
-            relativeTo: this._activedRoute.parent,
-          });
+          this._router.navigateByUrl('/home/users');
         },
         complete: () => {
           this.sending = false;

@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 const MODULES = [
   CommonModule,
   MatTableModule,
@@ -26,6 +26,7 @@ const MODULES = [
   MatProgressSpinnerModule,
   MatSnackBarModule,
   MatPaginatorModule,
+  MatProgressBarModule,
   MatTooltipModule,
 ];
 

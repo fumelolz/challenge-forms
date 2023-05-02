@@ -12,6 +12,11 @@
       />
       <small
         class="input-error"
+        *ngIf="name.hasError('pattern') && name.touched"
+        >Caracteres invalidos</small
+      >
+      <small
+        class="input-error"
         *ngIf="name.hasError('required') && name.touched"
         >El campo es requerido</small
       >
@@ -27,6 +32,11 @@
       />
       <small
         class="input-error"
+        *ngIf="cost.hasError('pattern') && cost.touched"
+        >Caracteres invalidos</small
+      >
+      <small
+        class="input-error"
         *ngIf="cost.hasError('required') && cost.touched"
         >El campo es requerido</small
       >
@@ -40,6 +50,7 @@
           (quantity.hasError('required') || quantity.hasError('required')) &&
           quantity.touched
         "
+        min="0"
         placeholder="Ingresa la cantidad"
         formControlName="quantity"
       />

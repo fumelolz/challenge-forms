@@ -46,6 +46,27 @@ a {
   color: #fff;
   text-decoration: none;
 }
+
+.box-alert {
+  text-align: center;
+  padding: 8px 12px;
+  margin: 12px 0px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.danger {
+  border: 1px solid #f8d7da;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.info {
+  border: 1px solid #f8d7da;
+  background-color: #567fb4;
+  color: #fff;
+}
+
 .input-group {
   position: relative;
 }

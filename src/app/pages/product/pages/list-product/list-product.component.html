@@ -4,9 +4,10 @@
   </div>
   <table
     mat-table
-    [dataSource]="products | async"
+    [dataSource]="products"
     class="mat-elevation-z8"
     matSort
+    *ngIf="products.length > 0"
   >
     <ng-container matColumnDef="ID">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -38,10 +39,17 @@
         >
           <mat-icon>edit</mat-icon>
         </button>
+        <button mat-icon-button color="primary" (click)="deleteOne(product.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+  <div class="box-alert info" *ngIf="products.length === 0">
+    No existen productos aún
+  </div>
 </div>

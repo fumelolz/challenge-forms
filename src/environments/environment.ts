@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   api: 'http://localhost:8000',
+  api_fake: 'http://localhost:3000',
+  delay: 2000,
 };
 
 /*

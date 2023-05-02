@@ -1,13 +1,13 @@
-<h1>Lista de usuarios</h1>
 <div class="list-container">
   <div class="list-controls">
     <button mat-stroked-button color="primary" routerLink="new">Agregar</button>
   </div>
   <table
     mat-table
-    [dataSource]="users | async"
+    [dataSource]="users"
     class="mat-elevation-z8"
     matSort
+    *ngIf="users.length"
   >
     <ng-container matColumnDef="Nombre">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
@@ -41,4 +41,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  <div class="box-alert info" *ngIf="users.length === 0">Cargando...</div>
 </div>

@@ -27,4 +27,8 @@ export class ProductService {
   updateOne(id: number, body: Product): Observable<any> {
     return this.http.put(environment.api.concat(`/api/products/${id}`), body);
   }
+
+  deleteOne(id: number): Observable<any> {
+    return this.http.delete(environment.api.concat(`/api/products/${id}`));
+  }
 }
