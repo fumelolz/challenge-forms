@@ -38,10 +38,13 @@ export class AddUserComponent implements OnInit {
     private readonly _activedRoute: ActivatedRoute
   ) {
     this.userForm = this._fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      last_name: [
+        '',
+        [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)],
+      ],
       role: ['CLIENT', Validators.required],
     });
   }
