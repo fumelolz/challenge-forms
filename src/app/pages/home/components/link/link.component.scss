@@ -3,8 +3,15 @@
   width: 100%;
   &:hover,
   &.active {
+    border-left: 4px solid #fff;
     background-color: #567fb4;
-    transition: background-color 0.2s ease;
+    transition: all 0.3s;
+
+    a {
+      mat-icon {
+        margin-left: 2px;
+      }
+    }
   }
 }
 
